@@ -18,7 +18,7 @@
 \author[a,c,1]{D. Finogeev,\note{Corresponding author.}}
 \author[a,b]{F. Guber,}
 \author[a]{N. Karpushkin,}
-\author[a]{A. Makhnev,}
+\author[a,b]{A. Makhnev,}
 
 
 \affiliation[a]{Institute for Nuclear Research RAS, Moscow, Russia,}
@@ -71,7 +71,7 @@ The CBM PSD is assembled from 46 individual modules, each forming a lead-scintil
 
 
 \subsection{FEE}
-Each photodetector is provided with a reference voltage of about 70 volts, as well as individual automatic correction of the reference voltage depending on the external temperature. The temperature sensor, as well as the LED for the possibility of photoelectronic calibration of photodiodes, are placed on the FEE panel. The monitoring and data collection from all FEEs are carried out by means of the slow control system.
+Each photodetector is provided with a common reference voltage of about 70 volts, as well as individual automatic correction of the reference voltage depending on the external temperature. The temperature sensor, as well as the LED for the possibility of photoelectronic calibration of photodiodes, are placed on the FEE panel. The monitoring and data collection from all FEEs are carried out by means of the slow control system.
 
 
 
@@ -84,20 +84,22 @@ Each photodetector is provided with a reference voltage of about 70 volts, as we
 
 
 \section{PSD readout concept}
-Signals from MPPCs are collected by the ADC addon board represented in figure~\ref{fig:3} (left). Addon board provides a single-ended interface based on single-ended to differential converters AD8138 IC that allow to provide adjustable input offset. The PSD readout is accomplished by the ADC board designed for the ECAL detector of PANDA experiment \cite{3} (see figure~\ref{fig:2}, right). The 64-channel board based on ADC LTM9011 with digitization rate up to 125Msps and 14-bit digitization resolution. ADC used now in 80 Msps digitization mode, the setup will be upgraded up to 120 Msps in 2020. 
+Signal readout is accomplished with an ADC board represented in figure~\ref{fig:3} and an Addon board represented in figure~\ref{fig:4}. Signals from MPPCs are collected by the ADC Addon board, which provides a single-ended interface based on single-ended to differential converters AD8138 ICs. Design allows for an adjustable input and output offset, utilizing the whole dynamic range of the converter. Besides providing a signal interface, Addon board includes an MPPC offset adjustment system, that consists out of 16 4-channel digital to analog converters (DACs) with unity-gain buffers. DACs provide a DC offset on the signal line, regulating voltage over the MPPC's terminals. Control of the DACs is accomplished through a STM32F103 microcontroller placed on the Addon board, which receives commands and adjustment data from the ADC board. Signal is then digitized by the ADC board designed for the ECAL detector of PANDA experiment \cite{3} (see figure~\ref{fig:3}). The 64-channel board based on ADC LTM9011 with digitization rate up to 125Msps and 14-bit digitization resolution. ADC used now in 80 Msps digitization mode, the setup will be upgraded up to 120 Msps in 2020. The ADC board is mounted directly onto the Addon board (see figure~\ref{fig:4}), and the whol aseembly is designed to fit standard 6U Eurocard cradles.
 Digitized samples of 64 analog signals are sent to 2 FPGAs Kintex 7 using 128 LVDS links. Each FPGA process data from 32 channels. For current tests simple signals waveform analyzing algorithm is used triggered by threshold crossing and provide charge of signal in fixed gate. An advanced signal processing algorithm based on the Prony-LS fitting procedure, which allows working with signals near the noise level, and also used for the pile-up recognition, has already been developed and will be implemented in the next tests.
 To meet requirement of experiment DAQ, GBT FPGA transceiver was integrated into firmware. GBT allow to transmit data, slow control and clock. Expected data rate is 1MHz per channel that constrains 100bit/hit for GBT data rate 3.2 Gbit/s. 
 LMK0460 jitter cleaner used for production ADC and MGTREF clocks. After reset 100MHz clock from on-board generator TD-100 used as master clock. After GBT RX synchronization established, source switched to external clock sourced from GBT RX. The clock switching scheme allow to maintain common DAQ clock domain. Measuring hit time in trigger-less readout occurs relative to time counting named timeslice synchronous for all experiment readout.
 
 \begin{figure}[htbp]
-\centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=.5\textwidth]{ADC_addon.png}
-\qquad
-\includegraphics[width=.2\textwidth]{ADC_board.png}
-
-\caption{\label{fig:3} 64-channel ADC board with 2 FPGA Kintex 7 (right). 64-channel ADC board addon  based on single-ended to differential converters (left) }
+	\centering
+	\includegraphics[width=.2\textwidth]{ADC_board.png}
+	\caption{\label{fig:3} 64-channel ADC board with 2 FPGA Kintex 7}
 \end{figure}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=.5\textwidth]{ADC_addon.png}
+	\caption{\label{fig:4} Addon board design with the ADC board mounted}
+\end{figure}
 
 \acknowledgments
 This work was supported by the Russian Foundation of Basic Research (RFBR) Grant No. 1
