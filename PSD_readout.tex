@@ -52,7 +52,6 @@
 The future Compressed Baryonic Matter (CBM) experiment at the Facility for Antiproton and Ion Research (FAIR) is aimed to explore the Quantum Chromodynamics (QCD) phase diagram in the region of high baryon densities. The CBM will operate in the beam energy range of 2 - 11 AGeV and beam interaction rates up to 10 MHz. The CBM experiment will use a free-streaming data acquisition system (DAQ), which requires a coordinated time stamping of data in all sub-systems. This coordination includes a time-stamping against related clocks (common base), a synchronization procedure (deterministic time offsets) and the delivery of data containers of identical size during the data taking. The forward hadron compensating lead/scintillator calorimeter - the Projectile Spectator Detector (PSD), with transverse and longitudinal segmentation and with the micropixel photodetectors light readout will be used in the CBM experiment to measure the event centrality and the reaction plane orientation in heavy-ion collisions. The mCBM setup at SIS18 is a prototype and demonstrator for CBM and the first implementation of a combined readout with CBM subsystems of different front-end electronics types.
 
 \section{The mCBM@SIS18 experiment}
-\label{sec:intro}
 The mCBM@SIS18 is a full-system test for CBM at the GSI/FAIR named mini-CBM (mCBM). The test setup include detector modules from all CBM detector subsystems (MVD, STS, RICH, MUCH, TRD, TOF, ECAL, PSD), using (pre-)series production specimen, positioned downstream of a nuclear target at an angle of 25◦ with respect to the beam axis. The concept of mCBM is sketched in figure~\ref{fig:1}
 
 \begin{figure}[htbp]
@@ -73,8 +72,6 @@ The CBM PSD is assembled from 46 individual modules, each forming a lead-scintil
 \subsection{FEE}
 Each photodetector is provided with a common reference voltage of about 70 volts, as well as individual automatic correction of the reference voltage depending on the external temperature. The temperature sensor, as well as the LED for the possibility of photoelectronic calibration of photodiodes, are placed on the FEE panel. The monitoring and data collection from all FEEs are carried out by means of the slow control system.
 
-
-
 \begin{figure}[htbp]
 \centering 
 \includegraphics[width=.45\textwidth]{PSD_module.png}
@@ -84,10 +81,12 @@ Each photodetector is provided with a common reference voltage of about 70 volts
 
 
 \section{PSD readout concept}
+
 Signal readout is accomplished with an ADC board represented in figure~\ref{fig:3} and an Addon board represented in figure~\ref{fig:4}. Signals from MPPCs are collected by the ADC Addon board, which provides a single-ended interface based on single-ended to differential converters AD8138 ICs. Design allows for an adjustable input and output offset, utilizing the whole dynamic range of the converter. Besides providing a signal interface, Addon board includes an MPPC offset adjustment system, that consists out of 16 4-channel digital to analog converters (DACs) with unity-gain buffers. DACs provide a DC offset on the signal line, regulating voltage over the MPPC's terminals. Control of the DACs is accomplished through a STM32F103 microcontroller placed on the Addon board, which receives commands and adjustment data from the ADC board. Signal is then digitized by the ADC board designed for the ECAL detector of PANDA experiment \cite{3} (see figure~\ref{fig:3}). The 64-channel board based on ADC LTM9011 with digitization rate up to 125Msps and 14-bit digitization resolution. ADC used now in 80 Msps digitization mode, the setup will be upgraded up to 120 Msps in 2020. The ADC board is mounted directly onto the Addon board (see figure~\ref{fig:4}), and the whole assembly is designed to fit standard 6U Eurocard cradles.
 Digitized samples of 64 analog signals are sent to 2 FPGAs Kintex 7 using 128 LVDS links. Each FPGA process data from 32 channels. For current tests simple signals waveform analyzing algorithm is used triggered by threshold crossing and provide charge of signal in fixed gate. An advanced signal processing algorithm based on the Prony-LS fitting procedure, which allows working with signals near the noise level, and also used for the pile-up recognition, has already been developed and will be implemented in the next tests.
 To meet requirement of experiment DAQ, GBT FPGA transceiver was integrated into firmware. GBT allow to transmit data, slow control and clock. Expected data rate is 1MHz per channel that constrains 100bit/hit for GBT data rate 3.2 Gbit/s. 
 LMK0460 jitter cleaner used for production ADC and MGTREF clocks. After reset 100MHz clock from on-board generator TD-100 used as master clock. After GBT RX synchronization established, source switched to external clock sourced from GBT RX. The clock switching scheme allow to maintain common DAQ clock domain. Measuring hit time in trigger-less readout occurs relative to time counting named timeslice synchronous for all experiment readout.
+
 
 \begin{figure}[htbp]
 	\centering
@@ -100,6 +99,38 @@ LMK0460 jitter cleaner used for production ADC and MGTREF clocks. After reset 10
 	\includegraphics[width=.5\textwidth]{ADC_addon.png}
 	\caption{\label{fig:4} Addon board design with the ADC board mounted}
 \end{figure}
+
+\section{PSD data monitoring}
+Information of the mPSD detector is transmitted to the mCBM common data reading system using the DPB board with modified software. Currently, mPSD data packages are sets of 64-bit messages containing information about the time stamp of the signal, total number and indices of triggered channels, charges, zero levels and times of arrival of signals, as well as the information about the signal waveforms. The completeness and integrity of the received data packets is monitored by the number of read GBT words. In addition, control of all transmitted information is also carried out online through a software module for data monitoring (see figure~\ref{fig:5}). The top two graphs serve here to track the indices of triggered channels. The indices correspond to the PSD sections from 0 to 8. An external source was connected to channel 9, which serves to check the synchronization between the mCBM detectors. The lower left graph shows the distribution of energy deposition in PSD sections. The major part of the energy is deposited in the two front sections of the calorimeter. The bottom right graph shows the evolution of the length of the microslices. This information is used to verify data integrity.
+
+\begin{figure}[htbp]
+\centering % \begin{center}/\end{center} takes some additional vertical space
+\includegraphics[width=\textwidth]{run582.png}
+
+\caption{\label{fig:5} Data monitoring software module}
+\end{figure}
+
+\section{PSD beam data results}
+During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronism of data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and PSD, located at about 200 ns, indicates the correlation of the data and serves to select beam events.
+
+\begin{figure}[htbp]
+\centering % \begin{center}/\end{center} takes some additional vertical space
+\includegraphics[width=\textwidth]{run582T0Psd.png}
+
+\caption{\label{fig:6} T0-Psd time correlation}
+\end{figure}
+
+Since the mCBM experiment collects data in a triggerless mode, it is necessary to construct events from signals based on their time stamps while data processing. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. The distribution of mPSD energy deposition in events constructed this way is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+
+\begin{figure}[htbp]
+\centering % \begin{center}/\end{center} takes some additional vertical space
+\includegraphics[width=.45\textwidth]{PsdEdepInEvent_calibrd.png}
+\qquad
+\includegraphics[width=.45\textwidth]{PsdEprofileInEvent_calibrd.png}
+\caption{\label{fig:7} mPSD energy deposition (left); mPSD energy profile (right)}
+\end{figure}
+
+
 
 \acknowledgments
 This work was supported by the Russian Foundation of Basic Research (RFBR) Grant No. 1
