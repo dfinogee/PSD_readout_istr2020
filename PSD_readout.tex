@@ -97,9 +97,9 @@ Signal readout is accomplished with an ADC board represented in figure~\ref{fig:
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=.2\textwidth]{ADC_board.png}
+	\includegraphics[width=.3\textwidth]{ADC_board.png}
 	\quad
-\includegraphics[width=.6\textwidth]{ADC_addon.png}
+\includegraphics[width=.4\textwidth]{ADC_addon.png}
 	\caption{\label{fig:3} 64-channel ADC board with 2 FPGA Kintex 7 (left); Addon board design with the ADC board mounted}
 \end{figure}
 
@@ -115,8 +115,10 @@ Photo of the assembled FEE setup is represented on figure~\ref{fig:4}.
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=.5\textwidth]{mPSD_FEE_photo.jpg}
-\caption{\label{fig:4} Photo of readout ADC board assembled with FEE addon at mPSD@mCBM}
+\includegraphics[width=.5\textwidth]{mPSD_FEE_photo.jpeg}
+\qquad
+\includegraphics[width=.3\textwidth]{mPSD_module_photo.jpeg}
+\caption{\label{fig:4} Photo of readout ADC board assembled with FEE addon (left); photo of mPSD modulse connected to FEE}
 \end{figure}
 
 ADC FPGA board was connected to mCBM DAQ via GBT protocol used for data transport, clock distribution and configuration purposes. ADC was used in 80 Msps digitization mode, the setup will be upgraded up to 120 Msps in 2020. Each channel triggered independently by amplitude threshold crossing and provide charge in fixed gate and waveform of measured signal. ADC takes data in trigger-less readout according to CBM DAQ requirements. Also prototypes of all crucial software parts such data unpacker, event building and data monitor was developed and tested.
