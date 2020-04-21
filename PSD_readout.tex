@@ -137,10 +137,8 @@ The completeness and integrity of the received data packets is monitored by the 
 \subsection{mPSD data analysis}
 It is one of the prime aims of mCBM to test and validate the data processing concept and the reconstruction software which are being developed for the full CBM experiment. mCBM thus will be a demonstrator for the computing concept of CBM, including the reconstruction of events and selection of data in real-time and the full offline data analysis. It is thus planned to use already existing software components as far as possible for both online and offline computing in mCBM.
 The challenge of the trigger-less readout is time synchronization and event building procedure. It is necessary to construct events from signals based on their time stamps while data processing.
-/// task and implementation of the event building for trigger-less readout ///
-In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns.
-
-During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronise of data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and PSD, located at about 200 ns, indicates the correlation of the data and serves to select beam events.
+During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronise of data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and PSD (time offset), located at about 200 ns, indicates the correlation of the data and serves to select beam events.
+In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
@@ -163,7 +161,7 @@ The distribution of mPSD energy deposition in events constructed is shown in fig
 
 ADC data processing on 80 Msps rate and GBT protocol functionality with clock switching procedure was tested. 
 // conclusion for FEE //
-// conclusion for software //
+Preliminary results of the analysis of data collected on the test beams of the mCBM experiment in the trigger-less mode were presented. The approach to tracking the integrity and quality of the data being collected is described, as well as the principle of the formation of events by the signal's time stamps is shown.
 Workability of the readout concept was proved and development of full PSD readout system was started.
 
 \acknowledgments
