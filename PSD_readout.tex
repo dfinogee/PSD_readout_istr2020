@@ -99,6 +99,14 @@ The monitoring system provides the MPPCs gain control during the data taking. Th
 Signal readout is performed with an ADC board represented in figure~\ref{fig:3} (left) and an Addon board represented in figure~\ref{fig:3} (right). 
 Estimated accumulated neutron flux for 2 months of operation is 10\textsuperscript{11} for a board that hosts MPPCs. To avoid radiation influence of the electronics, Addon and ADC boards will be distanced from the calorimeter at about 25 - 40 m. For the same reason, MPPCs are directly connected to the Addon board via a 50 Ohm cable, as no amplification circuitry may be mounted at the calorimeter. 
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=.23\textwidth]{ADC_board.png}
+	\quad
+	\includegraphics[width=.3\textwidth]{ADC_addon.png}
+	\caption{\label{fig:3} 64-channel ADC board with 2 FPGA Kintex 7 (left); Addon board design with the ADC board mounted (right)}
+\end{figure}
+
 Signals from MPPCs are collected by the ADC Addon board, which provides a single-ended interface based on single-ended to differential converters AD8138 ICs. Design allows for an adjustable input and output offset, utilizing the whole dynamic range of the converter. Besides providing a signal interface, Addon board includes an MPPC offset adjustment system, that consists out of 16 four-channel digital to analog converters (DACs) with unity-gain buffers. DACs provide a DC offset on the signal line, providing fine adjustment of the voltage over the MPPC's terminals. Control of the DACs is accomplished through an STM32F103 microcontroller placed on the Addon board, which receives commands and adjustment data from the ADC board.
 
 Signals are then digitized by the ADC board initially designed for the ECAL detector of PANDA experiment \cite{4} (see figure~\ref{fig:3}, left). The 64-channel board is based on LTM9011 ADC with digitization rate up to 125Msps and 14-bit digitization resolution. The ADC board is mounted directly onto the Addon board (see figure~\ref{fig:3}, right), and the whole assembly is designed to fit standard 6U Eurocard cradles.
@@ -106,22 +114,15 @@ Digitized samples of 64 analog signals are sent to 2 Kintex 7 FPGAs using 128 LV
 To meet the requirements of experiment's DAQ, GBT FPGA transceiver was integrated into the firmware. GBT allows to transmit data, slow control and clock signals. Expected data rate is 1MHz per channel that gives a constrain of 100bit/hit for GBT data rate of 3.2 Gbit/s. 
 LMK0460 jitter cleaner is used for generation of ADC and MGTREF clocks. After a reset signal, 100MHz clock from on-board generator TD-100 is used as a master clock. After GBT RX synchronization is established, source is switched to an external clock, sourced from GBT RX. The clock switching scheme allows to maintain common DAQ clock domain. Measuring hit time in trigger-less readout occurs relative to the time counting named "timeslice", which is synchronized for the whole experiment readout.
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=.3\textwidth]{ADC_board.png}
-	\quad
-	\includegraphics[width=.4\textwidth]{ADC_addon.png}
-	\caption{\label{fig:3} 64-channel ADC board with 2 FPGA Kintex 7 (left); Addon board design with the ADC board mounted (right)}
-\end{figure}
 
 \section{ The first mPSD beam test results at mCBM}
 At the end of 2019 and beginning of 2020 beam tests at mCBM@SIS18 were carried out with Au and Pb ions at 1.01 - 1.22 AGeV energy range. The main goal is to test detectors subsystems, DAQ and online data aggregation procedure. Test of the mPSD prototype as a part of mCBM experiment allows to approve and verify the feasibility of the PSD readout concept. The prototype includes crucial parts of the readout such as Addon prototype board and ADC FPGA readout board. In this setup, Addon incorporated only the single-ended to differential converters and the necessary power systems. Photo of the assembled FEE setup is represented on figure~\ref{fig:4}.
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
-\raisebox{-0.5\height}{\includegraphics[width=.5\textwidth]{mPSD_FEE_photo.JPG}}
+\raisebox{-0.5\height}{\includegraphics[width=.3\textwidth]{mPSD_FEE_photo.JPG}}
 \qquad
-\raisebox{-0.5\height}{\includegraphics[width=.4\textwidth]{mPSD_module_photo.JPG}}
+\raisebox{-0.5\height}{\includegraphics[width=.2\textwidth]{mPSD_module_photo.JPG}}
 \caption{\label{fig:4} Photo of the ADC board assembled with the Addon board prototype (left); photo of mPSD module connected to FEE (right; 1 - Addon and ADC assembly, 2 - mPSD, 3 - MPPC board)}
 \end{figure}
 
@@ -141,8 +142,6 @@ The completeness and integrity of the received data packets is monitored by the 
 \subsection{Preliminary mPSD test results}
 One of the prime aims of mCBM is to test and validate the data processing concept and the reconstruction software which are being developed for the full CBM experiment. mCBM thus will be a demonstrator for the computing concept of CBM, including the reconstruction of events and selection of data in real-time and the full offline data analysis. It is thus planned to use already existing software components as far as possible for both online and offline computing in mCBM.
 The challenge of the trigger-less readout is time synchronization and event building procedure. It is necessary to construct events from signals based on their time stamps while data processing.
-During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronization of the data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and PSD (time offset), located at about 200 ns, indicates the correlation of the data and serves to select beam events.
-In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
@@ -151,15 +150,21 @@ In the same way, the timestamps of signals from all subsystems are used to attri
 \caption{\label{fig:6} T0-Psd time correlation}
 \end{figure}
 
-The distribution of mPSD energy deposition in events constructed is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronization of the data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and PSD (time offset), located at about 200 ns, indicates the correlation of the data and serves to select beam events.
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=.45\textwidth]{PsdEdepInEvent_calibrd.png}
+\includegraphics[width=.4\textwidth]{PsdEdepInEvent_calibrd.png}
 \qquad
-\includegraphics[width=.45\textwidth]{PsdEprofileInEvent_calibrd.png}
+\includegraphics[width=.4\textwidth]{PsdEprofileInEvent_calibrd.png}
 \caption{\label{fig:7} mPSD energy deposition (left); mPSD energy profile (right)}
 \end{figure}
+
+In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
+
+The distribution of mPSD energy deposition in events constructed is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+
+
 
 \section{Conclusions}
 The prototype of mPSD@CBM readout system was implemented and tested in the first high rate heavy ion interactions. mPSD beam tests included all conceptual hardware, firmware and software parts which will be used for final PSD@CBM setup developement. Signal transmission chain, ADC data processing on 80 Msps rate and GBT protocol functionality with clock switching procedure were tested. Preliminary results of the analysis of data collected on the test beams of the mCBM experiment in the trigger-less mode were presented. The approach to tracking the integrity and quality of the data being collected is described, as well as the principle of the formation of events by the signal's time stamps is shown.
