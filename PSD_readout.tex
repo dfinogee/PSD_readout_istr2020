@@ -71,7 +71,7 @@ The mCBM setup will allow to test the most important aspects of CBM development 
 	\caption{\label{fig:1} Concept sketch of the proposed mCBM test-setup}
 \end{figure}
 
-To make possible the CBM@FAIR data collection with nucleus-nucleus collision rate up to 10MHz leading to a data rate up to 1TB per second, the ultra-fast and radiation tolerant GBTx ASIC data aggregation unit developed at CERN will be used. Afterwards, the data streams are handled by Data Processing Boards (DPB) containing powerful FPGAs and are forwarded via FLES Input Selector (FLES) which performs on-line event selection. In 2020-2021 DPB and FLIB will be replaced by a prototype of the Common Readout Interface (CRI) as it is foreseen in CBM experiment.
+To make possible the CBM@FAIR data collection with nucleus-nucleus collision rate up to 10MHz leading to a data rate up to 1TB per second, the ultra-fast and radiation tolerant GBTx ASIC data aggregation unit developed at CERN will be used. Afterwards, the data streams are handled by Data Processing Boards (DPB) containing powerful FPGAs and are forwarded via FLES Input Selector (FLES) which performs on-line event selection. In 2020-2021 DPB and FLIB (FLES input board) will be replaced by a prototype of the Common Readout Interface (CRI) as it is foreseen in CBM experiment.
 
 
 \section{The Projectile spectator detector at the CBM}
@@ -89,7 +89,7 @@ The PSD will be assembled from already constructed 46 individual modules and has
 \caption{\label{fig:2} Schematic view of the CBM PSD, left. Schematic view of the PSD module structure, center. Photo of assembled PSD module, right}
 \end{figure}
 
-Each photodetector is supplied with a common base voltage of about 70 volts, as well as individual automatic correction to the base voltage depending on the external temperature. The temperature sensor, as well as the LED for the possibility of photoelectronic calibration of MPPC, are placed on the FEE panel. The monitoring of temperature and voltage parameters from all FEEs are carried out by means of a slow control system, which provides the MPPCs gain control during the data taking. The monitoring system provides the MPPCs gain control during the data taking. Thus, each PSD module has ten longitudinal sections, which ensures the uniformity of light collection along the modules. Schematic view and photo of a PSD module without top cap are shown in figure~\ref{fig:2}, center and right.
+Each photodetector is supplied with a common base voltage of about 70 volts, as well as individual automatic correction to the base voltage depending on the external temperature. The temperature sensor, as well as the LED for the possibility of photoelectronic calibration of MPPC, are placed on the FEE panel. The monitoring of temperature and voltage parameters from all FEEs are carried out by means of a slow control system, which provides the MPPCs gain control during the data taking.  Thus, each PSD module has ten longitudinal sections, which ensures the uniformity of light collection along the modules. Schematic view and photo of a PSD module without top cap are shown in figure~\ref{fig:2}, center and right.
 
 
 
@@ -162,7 +162,7 @@ During the data acquisition, information from all the detectors of the mCBM expe
 
 In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
 
-The distribution of mPSD energy deposition in first two sections in events constructed is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+The distribution of mPSD energy deposition in first two sections in events constructed is shown in figure~\ref{fig:7} (left). The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
 
 
 
