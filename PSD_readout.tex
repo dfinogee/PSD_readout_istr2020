@@ -154,15 +154,15 @@ During the data acquisition, information from all the detectors of the mCBM expe
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=.4\textwidth]{PsdEdepInEvent_calibrd.png}
+\includegraphics[width=.4\textwidth]{en_distr_ch0_ch1.png}
 \qquad
 \includegraphics[width=.4\textwidth]{PsdEprofileInEvent_calibrd.png}
-\caption{\label{fig:7} mPSD energy deposition (left); mPSD energy profile (right)}
+\caption{\label{fig:7} mPSD energy deposition in first two sections (left); mPSD energy profile (right)}
 \end{figure}
 
 In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
 
-The distribution of mPSD energy deposition in events constructed is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+The distribution of mPSD energy deposition in first two sections in events constructed is shown in figure~\ref{fig:7} (left). The presence of two peaks here is explained by the discrete number of triggered sections in the event. The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
 
 
 
