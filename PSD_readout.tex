@@ -5,7 +5,7 @@
  \pdfoutput=1 % if your are submitting a pdflatex (i.e. if you have
              % images in pdf, png or jpg format)
 \usepackage{jinstpub} 
-
+\usepackage{lineno}
 
 % for details on the use of the package, please
                      % see the JINST-author-manual
@@ -31,7 +31,7 @@
 % e-mail addresses: only for the corresponding author
 \emailAdd{dmitry.finogeev@cern.ch}
 
-
+\linenumbers
 
 
 \abstract{The Projectile Spectator Detector (PSD) is a sampling lead/scintillator forward hadron calorimeter with transverse and longitudinal segmentation and with MPPC photodetectors light readout. The PSD will be used at the Compressed Baryonic Matter (CBM) experiment at FAIR to measure the nucleus-nucleus collision centrality and orientation of the reaction plane. The CBM experiment will use a free-streaming data acquisition system (DAQ), which requires a coordinated time stamping of data in all sub-systems. To test prototypes of the CBM sub-detectors, front-end electronics (FEE) and readout electronics at high heavy ion beam rates the "mini CBM" (mCBM) installation has been assembled at SIS18 accelerator in GSI, Darmstadt, Germany in the framework of the FAIR Phase-0 program. A single "mini PSD" (mPSD) module has been integrated into the mCBM experiment. Details of the mPSD readout electronics and the first results of the data acquisition, processing and transmission within the common synchronized mCBM data transport system taken during the first beam tests are shown. }
@@ -145,24 +145,17 @@ The challenge of the trigger-less readout is time synchronization and event buil
 
 \begin{figure}[htbp]
 \centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=\textwidth]{582_time_spectrum.eps}
-
-\caption{\label{fig:6} T0-Psd time correlation}
+\includegraphics[width=.5\textwidth]{582_time_spectrum.eps}
+\quad
+\includegraphics[width=.35\textwidth]{en_distrib_ch0.eps}
+\caption{\label{fig:6} T0-Psd time correlation(left);  mPSD energy deposition in first section (right)}
 \end{figure}
 
 During the data acquisition, information from all the detectors of the mCBM experiment is recorded in a common binary file. To check the synchronization of the data from the detectors, the time correlation graphs are constructed (see figure~\ref{fig:6}). An explicit peak in the distribution of the difference in the response time of the detectors T0 and mPSD (time offset), located at about 200 ns, indicates the correlation of the data and serves to select beam events.
 
-\begin{figure}[htbp]
-\centering % \begin{center}/\end{center} takes some additional vertical space
-\includegraphics[width=.4\textwidth]{en_distrib_ch0.eps}
-\qquad
-\includegraphics[width=.4\textwidth]{profile.eps}
-\caption{\label{fig:7} mPSD energy deposition in first section (left); mPSD energy profile (right)}
-\end{figure}
-
 In the same way, the timestamps of signals from all subsystems are used to attribute these signals to a specific event. To ensure the possibility of this approach, time synchronization between the subsystems is used taking into account the time offsets that are inevitably introduced during the signal acquisition process. In the current approach, we assume the signals to form a single event, if their time stamps are located in a single time window of 200ns. In addition to introducing a fixed time window for event selection, conditions on the minimum number of signals from subsystems that are located in the considered time window can be applied. Such a straightforward approach is justified at the debugging stage and will be improved in the future.
 
-The distribution of mPSD energy deposition in first section in events constructed is shown in figure~\ref{fig:7} (left). The right side of figure~\ref{fig:7} shows the energy profile in the mPSD sections.
+The distribution of mPSD energy deposition in first section in events constructed is shown in figure~\ref{fig:6} (right).
 
 
 
